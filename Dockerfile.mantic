@@ -27,4 +27,4 @@ ENV DEVKITPRO=/opt/devkitpro
 ENV PATH=${DEVKITPRO}/tools/bin:$PATH
 ENV DEVKITARM=${DEVKITPRO}/devkitARM
 
-# build with `docker build -f .\dkp-mantic . -t pixelkiri/devkitpro-switch-dev`
+# build with `docker build -f .\Dockerfile.mantic . -t pixelkiri/devkitpro-switch-dev`

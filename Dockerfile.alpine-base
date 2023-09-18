@@ -27,4 +27,4 @@ ENV DEVKITARM=${DEVKITPRO}/devkitARM
 ENV DEVKITPPC=${DEVKITPRO}/devkitPPC
 ENV PATH=${DEVKITPRO}/tools/bin:$PATH
 
-# build with `docker build -f .\dkp-alpine-base . -t pixelkiri/devkitpro-base`
+# build with `docker build -f .\Dockerfile.alpine-base . -t pixelkiri/devkitpro-base`
