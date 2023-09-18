@@ -1,0 +1,30 @@
+# builds a heavier ubuntu-based image
+FROM ubuntu:mantic
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get upgrade -y
+
+# ensure apt is set up to work with https sources
+RUN apt-get install -y --no-install-recommends apt-transport-https wget ca-certificates git cmake ncftp
+
+# Store devkitPro gpg key locally if we don't have it already
+RUN mkdir -p /usr/local/share/keyring/
+RUN wget -O /usr/local/share/keyring/devkitpro-pub.gpg https://apt.devkitpro.org/devkitpro-pub.gpg
+
+# Add the devkitPro apt repository if we don't have it set up already
+RUN echo "deb [signed-by=/usr/local/share/keyring/devkitpro-pub.gpg] https://apt.devkitpro.org stable main" > /etc/apt/sources.list.d/devkitpro.list
+
+# Finally install devkitPro pacman
+RUN apt-get update && apt-get install -y devkitpro-pacman
+
+RUN ln -sf /proc/self/mounts /etc/mtab
+RUN dkp-pacman -Syyu --noconfirm
+RUN dkp-pacman -S --needed --noconfirm switch-dev && yes | dkp-pacman -Scc
+RUN dkp-pacman -S --needed --noconfirm switch-zlib switch-bzip2 switch-freetype switch-libpng switch-mesa && yes | dkp-pacman -Scc
+
+ENV LANG en_US.UTF-8
+ENV DEVKITPRO=/opt/devkitpro
+ENV PATH=${DEVKITPRO}/tools/bin:$PATH
+ENV DEVKITARM=${DEVKITPRO}/devkitARM
+
+# build with `docker build -f .\dkp-mantic . -t pixelkiri/devkitpro-switch-dev`

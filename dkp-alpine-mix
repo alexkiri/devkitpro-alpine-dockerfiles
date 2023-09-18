@@ -1,0 +1,11 @@
+# builds the 3 flavors
+FROM pixelkiri/devkitpro-base:latest
+
+RUN pacman -S --needed --noconfirm switch-dev && yes | pacman -Scc
+# build with `docker build -f .\dkp-alpine-mix . -t pixelkiri/devkitpro-alpine-switch`
+
+# RUN pacman -S --needed --noconfirm gamecube-dev wii-dev wiiu-dev && yes | pacman -Scc
+# build with `docker build -f .\dkp-alpine-mix . -t pixelkiri/devkitpro-alpine-ppc`
+
+# RUN pacman -S --needed --noconfirm 3ds-dev nds-dev gp32-dev gba-dev gp2x-dev && yes | pacman -Scc
+# build with `docker build -f .\dkp-alpine-mix . -t pixelkiri/devkitpro-alpine-arm`
