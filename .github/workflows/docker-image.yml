@@ -11,5 +11,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Build the devkitpro-base image
-      run: docker build . --file Dockerfile.alpine-base --tag pixelkiri/devkitpro-base:$(date +%s)
+    - name: Build the devkitpro-alpine-switch image
+      run: docker build . --file Dockerfile.alpine-mix --tag pixelkiri/devkitpro-alpine-switch:$(date +%s)
