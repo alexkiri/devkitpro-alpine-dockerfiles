@@ -1,0 +1,2 @@
+FROM pixelkiri/devkitpro-base:latest
+RUN pacman -S --needed --noconfirm 3ds-dev nds-dev gp32-dev gba-dev gp2x-dev && yes | pacman -Scc

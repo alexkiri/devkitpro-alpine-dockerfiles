@@ -1,0 +1,2 @@
+FROM pixelkiri/devkitpro-base:latest
+RUN pacman -S --needed --noconfirm switch-dev && yes | pacman -Scc

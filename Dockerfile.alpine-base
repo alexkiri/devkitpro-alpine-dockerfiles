@@ -11,14 +11,11 @@ Server = https://pkg.devkitpro.org/packages\n\
 SigLevel = Optional TrustAll\n\
 Server = https://pkg.devkitpro.org/packages/linux/\$arch/" >> /etc/pacman.conf
 
-RUN sudo pacman-key --init
-RUN sudo pacman-key --recv BC26F752D25B92CE272E0F44F7FD5492264BB9D0 --keyserver keyserver.ubuntu.com
-RUN sudo pacman-key --lsign BC26F752D25B92CE272E0F44F7FD5492264BB9D0
+RUN sudo pacman-key --init ; sudo pacman-key --recv BC26F752D25B92CE272E0F44F7FD5492264BB9D0 --keyserver keyserver.ubuntu.com ; sudo pacman-key --lsign BC26F752D25B92CE272E0F44F7FD5492264BB9D0
 
-RUN pacman -Syyu --noconfirm
+RUN pacman -Syyu --noconfirm && yes | pacman -Scc
 
-RUN wget https://pkg.devkitpro.org/devkitpro-keyring.pkg.tar.xz
-RUN sudo pacman -U --noconfirm devkitpro-keyring.pkg.tar.xz
+RUN wget https://pkg.devkitpro.org/devkitpro-keyring.pkg.tar.xz ; sudo pacman -U --noconfirm devkitpro-keyring.pkg.tar.xz ; sudo pacman-key --populate devkitpro ; rm devkitpro-keyring.pkg.tar.xz
 RUN echo "install whatever you need from the dkp repo, such as `pacman -S switch-dev`"
 
 ENV LANG=en_US.UTF-8
@@ -27,4 +24,4 @@ ENV DEVKITARM=${DEVKITPRO}/devkitARM
 ENV DEVKITPPC=${DEVKITPRO}/devkitPPC
 ENV PATH=${DEVKITPRO}/tools/bin:$PATH
 
-# build with `docker build -f .\Dockerfile.alpine-base . -t pixelkiri/devkitpro-base`
+# build with `docker build . --file Dockerfile.alpine-base --tag pixelkiri/devkitpro-base`

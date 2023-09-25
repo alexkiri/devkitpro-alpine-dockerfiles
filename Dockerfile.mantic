@@ -18,7 +18,7 @@ RUN echo "deb [signed-by=/usr/local/share/keyring/devkitpro-pub.gpg] https://apt
 RUN apt-get update && apt-get install -y devkitpro-pacman
 
 RUN ln -sf /proc/self/mounts /etc/mtab
-RUN dkp-pacman -Syyu --noconfirm
+RUN dkp-pacman -Syyu --noconfirm && yes | pacman -Scc
 RUN dkp-pacman -S --needed --noconfirm switch-dev && yes | dkp-pacman -Scc
 RUN dkp-pacman -S --needed --noconfirm switch-zlib switch-bzip2 switch-freetype switch-libpng switch-mesa && yes | dkp-pacman -Scc
 
@@ -27,4 +27,4 @@ ENV DEVKITPRO=/opt/devkitpro
 ENV PATH=${DEVKITPRO}/tools/bin:$PATH
 ENV DEVKITARM=${DEVKITPRO}/devkitARM
 
-# build with `docker build -f .\Dockerfile.mantic . -t pixelkiri/devkitpro-switch-dev`
+# build with `docker build . --file Dockerfile.mantic --tag pixelkiri/devkitpro-switch-dev`

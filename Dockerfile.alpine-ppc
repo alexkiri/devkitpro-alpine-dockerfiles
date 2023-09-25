@@ -1,0 +1,2 @@
+FROM pixelkiri/devkitpro-base:latest
+RUN pacman -S --needed --noconfirm gamecube-dev wii-dev wiiu-dev && yes | pacman -Scc
